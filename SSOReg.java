@@ -1,15 +1,22 @@
 package com.example.shivamdhammi.drag;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -21,6 +28,7 @@ public class SSOReg extends AppCompatActivity {
     private Button Register;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,8 @@ public class SSOReg extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("SSO");
+
+        mAuth = FirebaseAuth.getInstance();
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,18 +73,72 @@ public class SSOReg extends AppCompatActivity {
 
         if(!TextUtils.isEmpty(username)){
 
-            SSOInfo info = new SSOInfo(username,password,repassword,ssoname,isonumber,email,address,contact);
+            if(password.equals(repassword)) {
 
-            myRef.child(username).setValue(info);
+                if(Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
-            Toast.makeText(getApplicationContext(),"Registered Successfully..",Toast.LENGTH_LONG).show();
+                    if(!contact.isEmpty()&&(contact.length()==10)) {
 
-            Intent intent = new Intent(getApplicationContext(),Home.class);
-            startActivity(intent);
+                        if(!ssoname.isEmpty()) {
+
+                            if(!isonumber.isEmpty()) {
+
+                                SSOInfo info = new SSOInfo(username,ssoname, isonumber, email, address, contact);
+
+                                myRef.child(username).setValue(info);
+
+                                mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(getApplicationContext(), "Registered Successfully..", Toast.LENGTH_LONG).show();
+
+                                        }
+                                        else{
+                                            Toast.makeText(getApplicationContext(),"Some Error occured",Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+
+                                /*Intent intent = new Intent(getApplicationContext(), Login.class);
+                                startActivity(intent);*/
+                            }
+                            else{
+                                ISOnumber.setError("Please enter ISO number");
+                                ISOnumber.requestFocus();
+                                return;
+                            }
+                        }
+                        else{
+                            SSOName.setError("Please Enter the SSO name.");
+                            SSOName.requestFocus();
+                            return;
+                        }
+                    }
+                    else{
+                        Contact.setError("Please enter the mobile number");
+                        Contact.requestFocus();
+                        return;
+                    }
+                }
+
+                else{
+                    Email.setError("Enter a valid username");
+                    Email.requestFocus();
+                    return;
+                }
+            }
+            else{
+                RePassword.setError("Password didn't match. Try again.");
+                RePassword.requestFocus();
+                return;
+            }
 
         }
         else{
-            Toast.makeText(getApplicationContext(),"Please Enter The UserName..",Toast.LENGTH_LONG).show();
+            UserName.setError("Please Enter The UserName..");
+            UserName.requestFocus();
+            return;
         }
 
 
