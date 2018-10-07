@@ -72,7 +72,7 @@ public class DonorReg extends AppCompatActivity {
                {
                    if(password.equals(repassword))
                    {
-                       if(!TextUtils.isEmpty(contact))
+                       if(!TextUtils.isEmpty(contact)&&contact.length()==10)
                        {
                            DonorInfo info=new DonorInfo(username,name,email,address,contact);
                            myref.child(username).setValue(info);
