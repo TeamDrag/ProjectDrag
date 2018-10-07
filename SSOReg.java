@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -62,7 +64,7 @@ public class SSOReg extends AppCompatActivity {
 
     private void addUser(){
 
-        String username = UserName.getText().toString().trim();
+        final String username = UserName.getText().toString().trim();
         String password = Password.getText().toString().trim();
         String repassword = RePassword.getText().toString().trim();
         String ssoname = SSOName.getText().toString().trim();
@@ -83,25 +85,38 @@ public class SSOReg extends AppCompatActivity {
 
                             if(!isonumber.isEmpty()) {
 
-                                SSOInfo info = new SSOInfo(username,ssoname, isonumber, email, address, contact);
+                                final SSOInfo info = new SSOInfo(username,ssoname, isonumber, email, address, contact);
 
-                                myRef.child(username).setValue(info);
+
+                                //Log.d("shivam","Dhammi");
 
                                 mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if(task.isSuccessful()){
+                                            myRef.child(username).setValue(info);
+                                            
                                             Toast.makeText(getApplicationContext(), "Registered Successfully..", Toast.LENGTH_LONG).show();
+                                            
+                                            Intent intent = new Intent(getApplicationContext(), Login.class);
+                                                startActivity(intent);
 
                                         }
                                         else{
-                                            Toast.makeText(getApplicationContext(),"Some Error occured",Toast.LENGTH_LONG).show();
+
+                                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
+                                                Toast.makeText(getApplicationContext(),"Email is already registered",Toast.LENGTH_LONG).show();
+                                            }
+                                            else if(task.getException() instanceof FirebaseAuthWeakPasswordException){
+                                                Toast.makeText(getApplicationContext(),"Password is too weak",Toast.LENGTH_LONG).show();
+                                            }
+                                            else{
+                                                Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                            }
                                         }
                                     }
                                 });
 
-                                /*Intent intent = new Intent(getApplicationContext(), Login.class);
-                                startActivity(intent);*/
                             }
                             else{
                                 ISOnumber.setError("Please enter ISO number");
@@ -123,7 +138,7 @@ public class SSOReg extends AppCompatActivity {
                 }
 
                 else{
-                    Email.setError("Enter a valid username");
+                    Email.setError("Enter a valid Email");
                     Email.requestFocus();
                     return;
                 }
