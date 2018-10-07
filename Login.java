@@ -113,6 +113,9 @@ public class Login extends AppCompatActivity {
                                     //Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
 
                                     Intent intent=new Intent(getApplicationContext(),SSO.class);
+                                    //bhai isse se...
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    //...Login ho kar phir vapis login page pr nhi jayega.
                                     startActivity(intent);
                                 }
                                 else
@@ -124,7 +127,8 @@ public class Login extends AppCompatActivity {
                                 }
                             }
                             else {
-                                Toast.makeText(getApplicationContext(),"LoggedIn Failed",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"LoggedIn Failed",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG).show();
 
                             }
                         }
