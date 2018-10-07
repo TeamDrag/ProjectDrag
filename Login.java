@@ -1,9 +1,10 @@
-package com.example.vasu.projectdrag;
+package com.example.shivamdhammi.drag;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -66,48 +67,74 @@ public class Login extends AppCompatActivity {
 
     public void loginUser()
     {
-        if(get_username.getText().toString().equals("") || get_password.getText().toString().equals("") || radioGroup.getCheckedRadioButtonId()==-1)
-        {
-            Toast.makeText(getApplicationContext(),"Blank Field Not Allowed",Toast.LENGTH_SHORT).show();
+        //Bhai maine yaha changes kiye hain.
+        //Toast vale statement bhi hta diye hain. 
+        
+        String username = get_username.getText().toString().trim();
+        String password = get_password.getText().toString().trim();
+
+        if(username.isEmpty()){
+
+            get_username.setError("Email is Required");
+            get_username.requestFocus();
+            return;
         }
-        else
-        {
-            auth.signInWithEmailAndPassword(get_username.getText().toString(),get_password.getText().toString())
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(username).matches()){
+
+            get_username.setError("Enter a valid Email Address");
+            get_username.requestFocus();
+            return;
+        }
+
+
+        if(password.isEmpty()){
+
+            get_password.setError("Password is Required");
+            get_password.requestFocus();
+            return;
+        }
+
+        if(password.length()<8){
+            get_password.setError("Minimum Password Length is 8.");
+            get_password.requestFocus();
+            return;
+        }
+
+        auth.signInWithEmailAndPassword(username,password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful())
                             {
-                                Toast.makeText(getApplicationContext(),"Hey Vasu",Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getApplicationContext(),"Hey Vasu",Toast.LENGTH_SHORT).show();
                                 if(radioButton.getText().toString()=="SSO")
                                 {
-                                    Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
 
                                     Intent intent=new Intent(getApplicationContext(),SSO.class);
                                     startActivity(intent);
                                 }
                                 else
                                 {
-                                    Toast.makeText(getApplicationContext(),"Hey Mayank",Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(getApplicationContext(),"Hey Mayank",Toast.LENGTH_SHORT).show();
 
                                     Intent intent=new Intent(getApplicationContext(),Donor.class);
                                     startActivity(intent);
                                 }
                             }
                             else {
-                                Toast.makeText(getApplicationContext(),"LoggedIn Failed",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"LoggedIn Failed",Toast.LENGTH_LONG).show();
 
                             }
                         }
                     });
-
-        }
     }
 
 
     public void Client(View v)
     {
-        Toast.makeText(getApplicationContext(),"Hey Sejal",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"Hey Sejal",Toast.LENGTH_SHORT).show();
 
         selectId=radioGroup.getCheckedRadioButtonId();
         radioButton=(RadioButton)findViewById(selectId);
