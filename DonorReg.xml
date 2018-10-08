@@ -46,7 +46,7 @@
 
 
     <EditText
-        android:id="@+id/id_ssoname"
+        android:id="@+id/id_address"
         android:layout_width="297dp"
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
