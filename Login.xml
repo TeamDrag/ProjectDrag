@@ -6,9 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    
+    
+ <RadioGroup
+        android:id="@+id/id_radiogroup"
+        android:layout_width="372dp"
+        android:layout_height="58dp"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="5dp">
     <RadioButton
-        android:id="@+id/radioButton"
+        android:id="@+id/id_radiosso"
         android:layout_width="150dp"
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
@@ -24,7 +31,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <RadioButton
-        android:id="@+id/radioButton2"
+        android:id="@+id/id_radiodonor"
         android:layout_width="147dp"
         android:layout_height="43dp"
         android:layout_marginStart="8dp"
@@ -35,12 +42,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.887"
-        app:layout_constraintStart_toStartOf="@+id/radioButton"
+        app:layout_constraintStart_toStartOf="@+id/id_radiosso"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.015" />
+     
+     </RadioGroup>
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/id_username"
         android:layout_width="322dp"
         android:layout_height="58dp"
         android:layout_marginStart="8dp"
@@ -54,7 +63,7 @@
         tools:layout_editor_absoluteY="107dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/id_password"
         android:layout_width="317dp"
         android:layout_height="56dp"
         android:layout_marginStart="8dp"
@@ -67,7 +76,7 @@
         tools:layout_editor_absoluteY="250dp" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/id_email"
         android:layout_width="322dp"
         android:layout_height="57dp"
         android:layout_marginStart="8dp"
@@ -80,7 +89,7 @@
         tools:layout_editor_absoluteY="178dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/id_forgotpassword"
         android:layout_width="139dp"
         android:layout_height="22dp"
         android:text="Forgot Password?"
@@ -88,7 +97,7 @@
         tools:layout_editor_absoluteY="314dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/id_login"
         android:layout_width="157dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -103,7 +112,7 @@
         app:layout_constraintVertical_bias="0.831" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/id_noaccount"
         android:layout_width="355dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
@@ -117,7 +126,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/id_login"
         app:layout_constraintVertical_bias="1.0" />
 
 </android.support.constraint.ConstraintLayout>
