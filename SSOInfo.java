@@ -8,8 +8,8 @@ public class SSOInfo {
 
     }
 
-    public SSOInfo(String userName, String SSOName, String ISOnumber, String email, String address, String contact) {
-        UserName = userName;
+    public SSOInfo(String UserName,String SSOName, String ISOnumber, String email, String address, String contact) {
+        this.UserName = UserName;
         this.SSOName = SSOName;
         this.ISOnumber = ISOnumber;
         Email = email;
