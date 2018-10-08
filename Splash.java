@@ -49,7 +49,8 @@ public class Splash extends AppCompatActivity{
                                                        public void onComplete(@NonNull Task<AuthResult> task) {
                                                            if(task.isSuccessful())
                                                            {
-                                                               Toast.makeText(getApplicationContext(),"Hey Vasu",Toast.LENGTH_SHORT).show();
+                                                               //bc inhe comment kr dia kr :)
+                                                               //Toast.makeText(getApplicationContext(),"Hey Vasu",Toast.LENGTH_SHORT).show();
                                                                if(client.equals("SSO"))
                                                                {
                                                                    // agar SSO hai tab SSO khulega....
@@ -66,7 +67,7 @@ public class Splash extends AppCompatActivity{
                                                            else
                                                            {
                                                                // Agar koi error aati hai tab Home Page hi khulega
-                                                               Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
+                                                               //Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
                                                                Intent intent = new Intent(Splash.this, Home.class);
                                                                startActivity(intent);
                                                                finish();
@@ -79,7 +80,7 @@ public class Splash extends AppCompatActivity{
                 else
                 {
                     // Agar ek baar bhi koi login nhi hua hai tab Login page yaha se khulega..
-                    Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(Splash.this, Home.class);
                     startActivity(intent);
                     finish();
