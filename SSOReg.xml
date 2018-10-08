@@ -158,7 +158,7 @@
         app:layout_constraintVertical_bias="0.692" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/id_signup"
         android:layout_width="362dp"
         android:layout_height="60dp"
         android:background="#084C61"
@@ -170,6 +170,63 @@
         android:paddingTop="20dp"
         tools:layout_editor_absoluteX="0.25dp"
         tools:layout_editor_absoluteY="0.5dp" />
+
+    <TextView
+        android:id="@+id/id_text"
+        android:layout_width="167dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="By signing up, you agree to our"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.006"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/id_signup"
+        app:layout_constraintVertical_bias="0.973" />
+
+    <TextView
+        android:id="@+id/id_tnc"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="20dp"
+        android:text="Terms of Use"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/id_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="and"
+        android:textSize="12dp"
+        tools:layout_editor_absoluteX="248dp"
+        tools:layout_editor_absoluteY="524dp" />
+
+     <TextView
+        android:id="@+id/id_privacy"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:text="Privacy Policy"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.998" />
+
 
 
 </android.support.constraint.ConstraintLayout>
