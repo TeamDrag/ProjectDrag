@@ -64,12 +64,23 @@ public class Login extends AppCompatActivity {
         });
     }
 
+    /*@Override
+    protected void onStart() {
+        super.onStart();
+        if(auth.getCurrentUser() != null){
+
+            finish();
+            startActivity(new Intent(getApplicationContext(),));
+
+        }
+
+    }*/
 
     public void loginUser()
     {
         //Bhai maine yaha changes kiye hain.
-        //Toast vale statement bhi hta diye hain. 
-        
+        //Toast vale statement bhi hta diye hain.
+
         String username = get_username.getText().toString().trim();
         String password = get_password.getText().toString().trim();
 
@@ -102,37 +113,40 @@ public class Login extends AppCompatActivity {
         }
 
         auth.signInWithEmailAndPassword(username,password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful())
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            //Toast.makeText(getApplicationContext(),"Hey Vasu",Toast.LENGTH_SHORT).show();
+                            if(radioButton.getText().toString()=="SSO")
                             {
-                                //Toast.makeText(getApplicationContext(),"Hey Vasu",Toast.LENGTH_SHORT).show();
-                                if(radioButton.getText().toString()=="SSO")
-                                {
-                                    //Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
-
-                                    Intent intent=new Intent(getApplicationContext(),SSO.class);
-                                    //bhai isse se...
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    //...Login ho kar phir vapis login page pr nhi jayega.
-                                    startActivity(intent);
-                                }
-                                else
-                                {
-                                    //Toast.makeText(getApplicationContext(),"Hey Mayank",Toast.LENGTH_SHORT).show();
-
-                                    Intent intent=new Intent(getApplicationContext(),Donor.class);
-                                    startActivity(intent);
-                                }
+                                //Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
+                                finish();
+                                Intent intent=new Intent(getApplicationContext(),SSO.class);
+                                //bhai isse se...
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                //...Login ho kar phir vapis login page pr nhi jayega.
+                                startActivity(intent);
                             }
-                            else {
-                                Toast.makeText(getApplicationContext(),"LoggedIn Failed",Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                            else
+                            {
+                                //Toast.makeText(getApplicationContext(),"Hey Mayank",Toast.LENGTH_SHORT).show();
+                                finish();
+                                Intent intent=new Intent(getApplicationContext(),Donor.class);
 
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                startActivity(intent);
                             }
                         }
-                    });
+                        else {
+                            Toast.makeText(getApplicationContext(),"LoggedIn Failed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
     }
 
 
@@ -144,6 +158,9 @@ public class Login extends AppCompatActivity {
         radioButton=(RadioButton)findViewById(selectId);
 
     }
+
+
+
 
 
 
