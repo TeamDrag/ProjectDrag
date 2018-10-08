@@ -47,21 +47,19 @@
         app:layout_constraintVertical_bias="0.015" />
      
      </RadioGroup>
-
-    <EditText
-        android:id="@+id/id_username"
+<EditText
+        android:id="@+id/id_email"
         android:layout_width="322dp"
-        android:layout_height="58dp"
+        android:layout_height="57dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        android:text=""
+        android:hint="Username or Email Id"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="107dp" />
-
+        tools:layout_editor_absoluteY="178dp" />
+    
     <EditText
         android:id="@+id/id_password"
         android:layout_width="317dp"
@@ -75,18 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="250dp" />
 
-    <EditText
-        android:id="@+id/id_email"
-        android:layout_width="322dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="Email Id"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="178dp" />
+    
 
     <TextView
         android:id="@+id/id_forgotpassword"
