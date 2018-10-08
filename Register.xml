@@ -4,34 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register">
+    tools:context=".Home"
+    android:background="@drawable/Android Mobile – 3">
 
     <Button
-        android:id="@+id/id_sso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="51dp"
+        android:id="@+id/button"
+        android:layout_width="125dp"
+        android:layout_height="64dp"
         android:text="SSO"
-        app:layout_constraintBaseline_toBaselineOf="@+id/id_donor"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="259dp" />
 
     <Button
-        android:id="@+id/id_donor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="63dp"
-        android:layout_marginTop="184dp"
-        android:text="Donor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/button2"
+        android:layout_width="121dp"
+        android:layout_height="59dp"
+        android:text="DONOR"
+        tools:layout_editor_absoluteX="192dp"
+        tools:layout_editor_absoluteY="259dp" />
 
-    <Button
-        android:id="@+id/id_already"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="66dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
