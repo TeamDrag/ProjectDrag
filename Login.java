@@ -1,6 +1,15 @@
-package com.example.shivamdhammi.drag;
+/*****************
 
+Ab apun ko naya dost maangta hai
+
+*****************/
+
+package com.example.vasu.projectdrag;
+
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -29,6 +39,7 @@ public class Login extends AppCompatActivity {
     int selectId;
 
 
+
     FirebaseAuth auth;
 
 
@@ -45,6 +56,7 @@ public class Login extends AppCompatActivity {
         noaccount=(Button)findViewById(R.id.id_noaccount);
 
         auth=FirebaseAuth.getInstance();
+
 
 
 
@@ -68,12 +80,9 @@ public class Login extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(auth.getCurrentUser() != null){
-
             finish();
             startActivity(new Intent(getApplicationContext(),));
-
         }
-
     }*/
 
     public void loginUser()
@@ -81,8 +90,8 @@ public class Login extends AppCompatActivity {
         //Bhai maine yaha changes kiye hain.
         //Toast vale statement bhi hta diye hain.
 
-        String username = get_username.getText().toString().trim();
-        String password = get_password.getText().toString().trim();
+        final String username = get_username.getText().toString().trim();
+        final String password = get_password.getText().toString().trim();
 
         if(username.isEmpty()){
 
@@ -118,11 +127,22 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
+                            SharedPreferences sharedPref=getSharedPreferences("MyData", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor=sharedPref.edit();
+                            editor.putString("Email",username);
+                            editor.putString("Password",password);
+                            editor.putString("Client",radioButton.getText().toString());
+                            editor.commit();
                             //Toast.makeText(getApplicationContext(),"Hey Vasu",Toast.LENGTH_SHORT).show();
                             if(radioButton.getText().toString()=="SSO")
                             {
-                                //Toast.makeText(getApplicationContext(),"Hey Dhammi",Toast.LENGTH_SHORT).show();
                                 finish();
+                                // Shared Preference Starts
+
+
+
+                                // Shared Preference Ends
+
                                 Intent intent=new Intent(getApplicationContext(),SSO.class);
                                 //bhai isse se...
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -148,8 +168,6 @@ public class Login extends AppCompatActivity {
                     }
                 });
     }
-
-
     public void Client(View v)
     {
         //Toast.makeText(getApplicationContext(),"Hey Sejal",Toast.LENGTH_SHORT).show();
@@ -158,10 +176,4 @@ public class Login extends AppCompatActivity {
         radioButton=(RadioButton)findViewById(selectId);
 
     }
-
-
-
-
-
-
 }
