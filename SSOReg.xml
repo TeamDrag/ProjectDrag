@@ -27,19 +27,20 @@
         app:layout_constraintVertical_bias="0.799" />
 
     <EditText
-        android:id="@+id/id_username"
-        android:layout_width="297dp"
+        android:id="@+id/id_email"
+        android:layout_width="293dp"
         android:layout_height="37dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName"
-        android:textSize="16sp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.595"
+        app:layout_constraintHorizontal_bias="0.549"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="57dp" />
+        tools:layout_editor_absoluteY="105dp" />
+
 
     <EditText
         android:id="@+id/id_ssoname"
@@ -60,21 +61,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.478" />
 
-    <EditText
-        android:id="@+id/id_email"
-        android:layout_width="293dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.549"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="105dp" />
-
+   
     <EditText
         android:id="@+id/id_isonumber"
         android:layout_width="296dp"
