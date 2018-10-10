@@ -12,10 +12,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,7 +42,8 @@ public class SProfileEdit extends AppCompatActivity {
 
     private static final int CHOOSE_IMAGE = 101 ;
     ImageView profilePic;//using bitmap.
-    EditText UserName,SSOName,ISOnumber,Email,Address,Contact;
+    EditText SSOName,ISOnumber,Address,Contact;
+    TextView UserName,Email;
     Button Save;
     Uri uriProfileImage;//uriZProfileImage = data.getData();[inside startActivityForResult()]
     String profileImageUrl;//To store the Downloaded URL of the image
@@ -55,10 +58,10 @@ public class SProfileEdit extends AppCompatActivity {
         setContentView(R.layout.activity_sprofile_edit);
 
         profilePic = (ImageView)findViewById(R.id.id_pic);
-        UserName = (EditText)findViewById(R.id.id_username);
+        UserName = (TextView)findViewById(R.id.id_username);
         SSOName = (EditText)findViewById(R.id.id_ssoname);
         ISOnumber = (EditText)findViewById(R.id.id_isonumber);
-        Email = (EditText)findViewById(R.id.id_email);
+        Email = (TextView)findViewById(R.id.id_email);
         Address = (EditText)findViewById(R.id.id_address);
         Contact = (EditText)findViewById(R.id.id_contact);
         Save = (Button)findViewById(R.id.id_save);
@@ -70,8 +73,9 @@ public class SProfileEdit extends AppCompatActivity {
 
         UserName.setText(test.substring(0,test.indexOf('@')));
         test =UserName.getText().toString();
+        //Toast.makeText(getApplicationContext(),test,Toast.LENGTH_LONG).show();
 
-        myRef = FirebaseDatabase.getInstance().getReference("SSO/"+test);
+        myRef = FirebaseDatabase.getInstance().getReference("SSO");
 
         Save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +83,14 @@ public class SProfileEdit extends AppCompatActivity {
                 saveUserInfo();
                 //Store the image and display name in Firebase Storage.
                 //we use profileImageURL to store it to Storage.
+
+                //////
+
+                SSOInfo newInfo = new SSOInfo
+                        (UserName.getText().toString(),SSOName.getText().toString(),ISOnumber.getText().toString(),Email.getText().toString(),Address.getText().toString(),Contact.getText().toString());
+
+                myRef.child(test).setValue(newInfo);
+                /////
             }
         });
 
@@ -95,19 +107,24 @@ public class SProfileEdit extends AppCompatActivity {
     }
 
 
-
     //onStart will retrieve the data from realTime Database and set the value to the corresponding fields.
     @Override
     protected void onStart() {
         super.onStart();
+        //Toast.makeText(getApplicationContext(),"Ye chl rha hai",Toast.LENGTH_LONG).show();
 
-        Toast.makeText(getApplicationContext(),"Ye chl rha hai",Toast.LENGTH_LONG).show();
+        Log.d("dikkat","Conatct"+myRef.child(test).child("contact"));
 
-        ValueEventListener infoListener = new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                SSOInfo ssoInfo = dataSnapshot.getValue(SSOInfo.class);
+                SSOInfo ssoInfo = dataSnapshot.child(test).getValue(SSOInfo.class);
+                Log.d("dikkat1",dataSnapshot.child(test).getValue(SSOInfo.class).toString());
+                Log.d("dikkat2",dataSnapshot.child(test).getValue().toString());
+                Log.d("dikkat3",dataSnapshot.child(test).toString());
+                Log.d("dikkat4",dataSnapshot.toString());
+                Log.d("dikkat5","$$"+dataSnapshot.child(test).getValue(SSOInfo.class).getContact());
 
                 UserName.setText(ssoInfo.getUserName());
                 SSOName.setText(ssoInfo.getSSOName());
@@ -116,15 +133,17 @@ public class SProfileEdit extends AppCompatActivity {
                 Address.setText(ssoInfo.getAddress());
                 Contact.setText(ssoInfo.getContact());
 
+                //Toast.makeText(getApplicationContext(),dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
 
-            }};
-
-        myRef.addValueEventListener(infoListener);
+            }
+        });
 
 
     }
