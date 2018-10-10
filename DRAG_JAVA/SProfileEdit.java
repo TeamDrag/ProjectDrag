@@ -42,14 +42,13 @@ public class SProfileEdit extends AppCompatActivity {
 
     private static final int CHOOSE_IMAGE = 101 ;
     ImageView profilePic;//using bitmap.
-    EditText SSOName,ISOnumber,Address,Contact;
-    TextView UserName,Email;
+    EditText SSOName,ISOnumber,Address,Contact,AccountNo;
+    TextView Email;
     Button Save;
     Uri uriProfileImage;//uriZProfileImage = data.getData();[inside startActivityForResult()]
     String profileImageUrl;//To store the Downloaded URL of the image
     FirebaseAuth auth;
     DatabaseReference myRef;
-    String test;
 
 
     @Override
@@ -58,21 +57,18 @@ public class SProfileEdit extends AppCompatActivity {
         setContentView(R.layout.activity_sprofile_edit);
 
         profilePic = (ImageView)findViewById(R.id.id_pic);
-        UserName = (TextView)findViewById(R.id.id_username);
         SSOName = (EditText)findViewById(R.id.id_ssoname);
         ISOnumber = (EditText)findViewById(R.id.id_isonumber);
         Email = (TextView)findViewById(R.id.id_email);
         Address = (EditText)findViewById(R.id.id_address);
         Contact = (EditText)findViewById(R.id.id_contact);
-        Save = (Button)findViewById(R.id.id_save);
+        AccountNo = (EditText)findViewById(R.id.id_account);
+
+        Save = (Button)findViewById(R.id.id_donate);
 
         auth = FirebaseAuth.getInstance();
 
         Email.setText(auth.getCurrentUser().getEmail());
-        test =Email.getText().toString();
-
-        UserName.setText(test.substring(0,test.indexOf('@')));
-        test =UserName.getText().toString();
         //Toast.makeText(getApplicationContext(),test,Toast.LENGTH_LONG).show();
 
         myRef = FirebaseDatabase.getInstance().getReference("SSO");
@@ -87,9 +83,10 @@ public class SProfileEdit extends AppCompatActivity {
                 //////
 
                 SSOInfo newInfo = new SSOInfo
-                        (UserName.getText().toString(),SSOName.getText().toString(),ISOnumber.getText().toString(),Email.getText().toString(),Address.getText().toString(),Contact.getText().toString());
+                        (SSOName.getText().toString(),ISOnumber.getText().toString(),Email.getText().toString()
+                                ,Address.getText().toString(),Contact.getText().toString(),AccountNo.getText().toString());
 
-                myRef.child(test).setValue(newInfo);
+                myRef.child(auth.getCurrentUser().getUid()).setValue(newInfo);
                 /////
             }
         });
@@ -113,25 +110,26 @@ public class SProfileEdit extends AppCompatActivity {
         super.onStart();
         //Toast.makeText(getApplicationContext(),"Ye chl rha hai",Toast.LENGTH_LONG).show();
 
-        Log.d("dikkat","Conatct"+myRef.child(test).child("contact"));
+        Log.d("dikkat","Conatct"+myRef.child(auth.getCurrentUser().getUid()).child("contact"));
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                SSOInfo ssoInfo = dataSnapshot.child(test).getValue(SSOInfo.class);
-                Log.d("dikkat1",dataSnapshot.child(test).getValue(SSOInfo.class).toString());
-                Log.d("dikkat2",dataSnapshot.child(test).getValue().toString());
-                Log.d("dikkat3",dataSnapshot.child(test).toString());
-                Log.d("dikkat4",dataSnapshot.toString());
-                Log.d("dikkat5","$$"+dataSnapshot.child(test).getValue(SSOInfo.class).getContact());
+                SSOInfo ssoInfo = dataSnapshot.child(auth.getCurrentUser().getUid()).getValue(SSOInfo.class);
 
-                UserName.setText(ssoInfo.getUserName());
+                Log.d("dikkat1",dataSnapshot.child(auth.getCurrentUser().getUid()).getValue(SSOInfo.class).toString());
+                Log.d("dikkat2",dataSnapshot.child(auth.getCurrentUser().getUid()).getValue().toString());
+                Log.d("dikkat3",dataSnapshot.child(auth.getCurrentUser().getUid()).toString());
+                Log.d("dikkat4",dataSnapshot.toString());
+                Log.d("dikkat5","$$"+dataSnapshot.child(auth.getCurrentUser().getUid()).getValue(SSOInfo.class).getContact());
+
                 SSOName.setText(ssoInfo.getSSOName());
                 ISOnumber.setText(ssoInfo.getISOnumber());
                 Email.setText(ssoInfo.getEmail());
                 Address.setText(ssoInfo.getAddress());
                 Contact.setText(ssoInfo.getContact());
+                AccountNo.setText(ssoInfo.getAccountno());
 
                 //Toast.makeText(getApplicationContext(),dataSnapshot.getValue().toString(),Toast.LENGTH_LONG).show();
 
@@ -212,7 +210,7 @@ public class SProfileEdit extends AppCompatActivity {
 
     private void uploadImageToFirebaseStorage() {
         final StorageReference profileImageRef =
-                FirebaseStorage.getInstance().getReference("profilepics/"+System.currentTimeMillis()+ ".jpg");
+                FirebaseStorage.getInstance().getReference("profilepics/"+auth.getCurrentUser().getUid()+ ".jpg");
 
         if(uriProfileImage!=null){
 
