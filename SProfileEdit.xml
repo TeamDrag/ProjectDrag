@@ -10,12 +10,10 @@
     <ImageView
         android:id="@+id/id_pic"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="23dp"
+        android:layout_height="204dp"
         android:layout_marginEnd="84dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/id_username"
         app:layout_constraintEnd_toStartOf="@+id/id_save"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,9 +23,11 @@
         android:id="@+id/id_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="172dp"
         android:layout_marginEnd="38dp"
         android:layout_marginTop="59dp"
         android:text="Save"
+        app:layout_constraintBottom_toTopOf="@+id/id_ssoname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/id_pic"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,72 +36,64 @@
         android:id="@+id/id_isonumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/id_email"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/id_ssoname" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/id_address"
         android:layout_width="0dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="45dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="30dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        app:layout_constraintBottom_toBottomOf="@+id/id_contact"
+        app:layout_constraintBottom_toTopOf="@+id/id_contact"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/id_email" />
+        app:layout_constraintTop_toBottomOf="@+id/id_email" />
 
     <EditText
         android:id="@+id/id_ssoname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginBottom="53dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/id_email"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_username" />
+        app:layout_constraintTop_toBottomOf="@+id/id_save" />
 
     <EditText
         android:id="@+id/id_contact"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="15dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/id_username"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/id_address" />
 
     <TextView
         android:id="@+id/id_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp"
         android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/id_address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id_isonumber" />
+        app:layout_constraintTop_toBottomOf="@+id/id_ssoname" />
 
 </android.support.constraint.ConstraintLayout>
