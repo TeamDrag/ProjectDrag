@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class SSOInfo {
 
-    private String UserName,SSOName,ISOnumber,Email,Address,Contact;
+    private String SSOName,ISOnumber,Email,Address,Contact,AccountNo;
 
     public Map<String, Boolean> stars = new HashMap<>();
 
@@ -15,17 +15,17 @@ public class SSOInfo {
 
     }
 
-    public SSOInfo(String userName,String ssoname, String isonumber, String email, String address, String contact) {
-        UserName = userName;
+    public SSOInfo(String ssoname, String isonumber, String email, String address, String contact,String accountno) {
         SSOName = ssoname;
         ISOnumber = isonumber;
         Email = email;
         Address = address;
         Contact = contact;
+        AccountNo = accountno;
     }
 
-    public String getUserName() {
-        return UserName;
+    public String getAccountno() {
+        return AccountNo;
     }
 
     public String getSSOName() {
@@ -48,9 +48,6 @@ public class SSOInfo {
         return Contact;
     }
 
-    public void setUserName(String userName) {
-        UserName = userName;
-    }
 
     public void setSSOName(String ssoname) {
         this.SSOName = ssoname;
@@ -72,12 +69,14 @@ public class SSOInfo {
         Contact = contact;
     }
 
-    
+    public void setAccountno(String Accountno) {
+        AccountNo = Accountno;
+    }
+
     //ye ignore kr bhai
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put("username", UserName);
         result.put("ssoname", SSOName);
         result.put("isonumber", ISOnumber);
         result.put("contact", Contact);
