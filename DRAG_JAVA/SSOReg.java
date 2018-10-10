@@ -26,7 +26,7 @@ import org.w3c.dom.Text;
 
 public class SSOReg extends AppCompatActivity {
 
-    private EditText Password,RePassword,SSOName,ISOnumber,Email,Address,Contact;
+    private EditText Password,RePassword,SSOName,ISOnumber,Email,Address,Contact,AccountNo;
     private Button Register;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -46,6 +46,7 @@ public class SSOReg extends AppCompatActivity {
         Address = (EditText)findViewById(R.id.id_address);
         Contact = (EditText)findViewById(R.id.id_contact);
         Register = (Button)findViewById(R.id.id_register);
+        AccountNo = (EditText)findViewById(R.id.id_account);
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("SSO");
@@ -71,81 +72,84 @@ public class SSOReg extends AppCompatActivity {
         final String email = Email.getText().toString().trim();
         String address = Address.getText().toString().trim();
         String contact = Contact.getText().toString().trim();
-        final String username = email.substring(0,email.indexOf('@'));
+        String accountno = AccountNo.getText().toString().trim();
 
-            if(password.equals(repassword)) {
+        if(!accountno.isEmpty()) {
 
-                if(Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            if (password.equals(repassword)) {
 
-                    if(!contact.isEmpty()&&(contact.length()==10)) {
+                if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
 
-                        if(!ssoname.isEmpty()) {
+                    if (!contact.isEmpty() && (contact.length() == 10)) {
 
-                            if(!isonumber.isEmpty()) {
+                        if (!ssoname.isEmpty()) {
 
-                                final SSOInfo info = new SSOInfo(username,ssoname, isonumber, email, address, contact);
+                            if (!isonumber.isEmpty()) {
+
+                                final SSOInfo info = new SSOInfo(ssoname, isonumber, email, address, contact,accountno);
 
 
                                 //Log.d("shivam","Dhammi");
 
-                                mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if(task.isSuccessful()){
-                                            myRef.child(email.substring(0,email.indexOf('@'))).setValue(info);
-                                                Toast.makeText(getApplicationContext(), "Registered Successfully..", Toast.LENGTH_LONG).show();
 
-                                            /*Intent intent = new Intent(getApplicationContext(), Login.class);
+                                        Log.d("dikkat100", mAuth.getCurrentUser().getUid());
+
+                                        if (task.isSuccessful()) {
+                                                myRef.child(mAuth.getCurrentUser().getUid()).setValue(info);
+                                            Toast.makeText(getApplicationContext(), "Registered Successfully..", Toast.LENGTH_LONG).show();
+
+                                            Intent intent = new Intent(getApplicationContext(), SProfile.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                startActivity(intent);*/
-                                            }
-                                        else{
-                                            if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                                Toast.makeText(getApplicationContext(),"Email is already registered",Toast.LENGTH_LONG).show();
-                                            }
-                                            else if(task.getException() instanceof FirebaseAuthWeakPasswordException){
-                                                Toast.makeText(getApplicationContext(),"Password is too weak",Toast.LENGTH_LONG).show();
-                                            }
-                                            else{
-                                                Toast.makeText(getApplicationContext(),task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                            startActivity(intent);
+                                        } else {
+                                            if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                                Toast.makeText(getApplicationContext(), "Email is already registered", Toast.LENGTH_LONG).show();
+                                            } else if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
+                                                Toast.makeText(getApplicationContext(), "Password is too weak", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     }
                                 });
 
-                            }
-                            else{
+                            } else {
                                 ISOnumber.setError("Please enter ISO number");
                                 ISOnumber.requestFocus();
                                 return;
                             }
-                        }
-                        else{
+                        } else {
                             SSOName.setError("Please Enter the SSO name.");
                             SSOName.requestFocus();
                             return;
                         }
-                    }
-                    else{
+                    } else {
                         Contact.setError("Please enter the mobile number");
                         Contact.requestFocus();
                         return;
                     }
-                }
-
-                else{
+                } else {
                     Email.setError("Enter a valid Email");
                     Email.requestFocus();
                     return;
                 }
-            }
-            else{
+            } else {
                 RePassword.setError("Password didn't match. Try again.");
                 RePassword.requestFocus();
                 return;
             }
+        }else {
+            AccountNo.setError("Please Enter the Account Number");
+            AccountNo.requestFocus();
+            return;
+        }
 
         }
 
 
     }
+
+
