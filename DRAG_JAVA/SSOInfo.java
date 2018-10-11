@@ -12,7 +12,6 @@ public class SSOInfo {
     public Map<String, Boolean> stars = new HashMap<>();
 
     public SSOInfo(){
-
     }
 
     public SSOInfo(String ssoname, String isonumber, String email, String address, String contact,String accountno) {
