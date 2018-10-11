@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,8 +19,6 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.w3c.dom.Text;
 
 public class SSOReg extends AppCompatActivity {
 
@@ -40,11 +36,11 @@ public class SSOReg extends AppCompatActivity {
 
         Password = (EditText)findViewById(R.id.id_password);
         RePassword = (EditText)findViewById(R.id.id_repassword);
-        SSOName = (EditText)findViewById(R.id.id_ssoname);
+        SSOName = (EditText)findViewById(R.id.id_ssoname1);
         ISOnumber = (EditText)findViewById(R.id.id_isonumber);
         Email = (EditText)findViewById(R.id.id_email);
         Address = (EditText)findViewById(R.id.id_address);
-        Contact = (EditText)findViewById(R.id.id_contact);
+        Contact = (EditText)findViewById(R.id.id_contact1);
         Register = (Button)findViewById(R.id.id_register);
         AccountNo = (EditText)findViewById(R.id.id_account);
 
@@ -98,13 +94,18 @@ public class SSOReg extends AppCompatActivity {
                                         Log.d("dikkat100", mAuth.getCurrentUser().getUid());
 
                                         if (task.isSuccessful()) {
+
                                                 myRef.child(mAuth.getCurrentUser().getUid()).setValue(info);
+
                                             Toast.makeText(getApplicationContext(), "Registered Successfully..", Toast.LENGTH_LONG).show();
 
-                                            Intent intent = new Intent(getApplicationContext(), SProfile.class);
+                                            Intent intent = new Intent(getApplicationContext(), SProfileEdit.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             startActivity(intent);
-                                        } else {
+                                        }
+
+                                        else {
+
                                             if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                                                 Toast.makeText(getApplicationContext(), "Email is already registered", Toast.LENGTH_LONG).show();
                                             } else if (task.getException() instanceof FirebaseAuthWeakPasswordException) {
@@ -112,6 +113,7 @@ public class SSOReg extends AppCompatActivity {
                                             } else {
                                                 Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                             }
+
                                         }
                                     }
                                 });
