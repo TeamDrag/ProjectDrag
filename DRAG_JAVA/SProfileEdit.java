@@ -1,5 +1,3 @@
-//bhai 106 line se check kr ek baar.
-
 
 package com.example.shivamdhammi.drag;
 
@@ -20,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +48,7 @@ public class SProfileEdit extends AppCompatActivity {
     String profileImageUrl;//To store the Downloaded URL of the image
     FirebaseAuth auth;
     DatabaseReference myRef;
+    StorageReference storageReference;
 
 
     @Override
@@ -56,12 +56,12 @@ public class SProfileEdit extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sprofile_edit);
 
-        profilePic = (ImageView)findViewById(R.id.id_pic);
-        SSOName = (EditText)findViewById(R.id.id_ssoname);
+        profilePic = (ImageView)findViewById(R.id.id_pictue);
+        SSOName = (EditText)findViewById(R.id.id_ssoname1);
         ISOnumber = (EditText)findViewById(R.id.id_isonumber);
         Email = (TextView)findViewById(R.id.id_email);
         Address = (EditText)findViewById(R.id.id_address);
-        Contact = (EditText)findViewById(R.id.id_contact);
+        Contact = (EditText)findViewById(R.id.id_contact1);
         AccountNo = (EditText)findViewById(R.id.id_account);
 
         Save = (Button)findViewById(R.id.id_donate);
@@ -88,6 +88,11 @@ public class SProfileEdit extends AppCompatActivity {
 
                 myRef.child(auth.getCurrentUser().getUid()).setValue(newInfo);
                 /////
+
+
+                //Test krne ke liye
+                /*Intent intent = new Intent(getApplicationContext(),SProfile.class);
+                startActivity(intent);*/
             }
         });
 
@@ -118,11 +123,15 @@ public class SProfileEdit extends AppCompatActivity {
 
                 SSOInfo ssoInfo = dataSnapshot.child(auth.getCurrentUser().getUid()).getValue(SSOInfo.class);
 
+
+                //below code was used for testing . from here...
                 Log.d("dikkat1",dataSnapshot.child(auth.getCurrentUser().getUid()).getValue(SSOInfo.class).toString());
                 Log.d("dikkat2",dataSnapshot.child(auth.getCurrentUser().getUid()).getValue().toString());
                 Log.d("dikkat3",dataSnapshot.child(auth.getCurrentUser().getUid()).toString());
                 Log.d("dikkat4",dataSnapshot.toString());
                 Log.d("dikkat5","$$"+dataSnapshot.child(auth.getCurrentUser().getUid()).getValue(SSOInfo.class).getContact());
+                //...till here.
+
 
                 SSOName.setText(ssoInfo.getSSOName());
                 ISOnumber.setText(ssoInfo.getISOnumber());
@@ -143,6 +152,24 @@ public class SProfileEdit extends AppCompatActivity {
             }
         });
 
+
+        try {
+            storageReference.child("profilepics/"+auth.getCurrentUser().getUid()+".jpg")
+                    .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    //Load image in the image view from Firebase Storage.
+                    Glide.with(getApplicationContext()).
+                            load(uri).
+                            into(profilePic);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),"@@@@@@@@@@@@@@@@",Toast.LENGTH_LONG).show();
+            return;
+
+        }
 
     }
 
