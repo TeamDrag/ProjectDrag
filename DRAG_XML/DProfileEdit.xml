@@ -120,7 +120,7 @@
         android:inputType="textPersonName"
         android:text="Address :" />
 
-    <EditText
+    <TextView
         android:id="@+id/id_email"
         android:layout_width="317dp"
         android:layout_height="wrap_content"
