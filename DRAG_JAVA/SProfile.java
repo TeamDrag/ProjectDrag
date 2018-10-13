@@ -26,18 +26,20 @@ import com.google.firebase.storage.StorageReference;
 public class SProfile extends AppCompatActivity {
 
     TextView Email,SSOName,ISOnumber,Address,Contact,AccountNo;
-    FirebaseAuth auth;
     DatabaseReference ref;
     Button donate;
     StorageReference storageReference;
     ImageView pic;
     String picURL;
+    String userID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sprofile);
+
+        getIncomingIntent();
 
         Email =(TextView)findViewById(R.id.id_email);
         SSOName =(TextView)findViewById(R.id.id_ssoname1);
@@ -51,7 +53,6 @@ public class SProfile extends AppCompatActivity {
 
         donate = (Button)findViewById(R.id.id_donate);
 
-        auth =FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance().getReference("SSO");
         storageReference = FirebaseStorage.getInstance().getReference();
 
@@ -72,7 +73,7 @@ public class SProfile extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                SSOInfo ssoInfo = dataSnapshot.child(auth.getCurrentUser().getUid()).getValue(SSOInfo.class);
+                SSOInfo ssoInfo = dataSnapshot.child(userID).getValue(SSOInfo.class);
 
                 SSOName.setText(ssoInfo.getSSOName());
                 ISOnumber.setText(ssoInfo.getISOnumber());
@@ -90,7 +91,7 @@ public class SProfile extends AppCompatActivity {
             }
         });
 
-       storageReference.child("profilepics/"+auth.getCurrentUser().getUid()+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+       storageReference.child("profilepics/"+userID+".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
            @Override
            public void onSuccess(Uri uri) {
                //Load image in the image view from Firebase Storage.
@@ -99,6 +100,16 @@ public class SProfile extends AppCompatActivity {
                        into(pic);
            }
        });
+
+    }
+
+
+    private void getIncomingIntent(){
+
+        if(getIntent().hasExtra("Uid")){
+
+            userID = getIntent().getStringExtra("Uid");
+        }
 
     }
 
