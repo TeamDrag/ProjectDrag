@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SEvent">
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="350dp"
+        android:layout_height="match_parent">
+
+    <EditText
+        android:background="@drawable/textbox"
+        android:padding="10dp"
+        android:id="@+id/id_seventname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Event Name"
+        android:inputType="textPersonName"
+        android:textSize="28dp" />
+
+    <EditText
+        android:padding="10dp"
+        android:background="@drawable/textbox"
+        android:id="@+id/id_seventdescription"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:hint="Event Description"
+        android:inputType="textPersonName"
+        android:textSize="22dp"
+        android:textStyle="italic" />
+
+    <Button
+        android:layout_marginBottom="20dp"
+        android:id="@+id/id_ssubmit"
+        android:textColor="#ffff"
+        android:background="@drawable/buttonbackground"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit" />
+    </LinearLayout>
+</LinearLayout>

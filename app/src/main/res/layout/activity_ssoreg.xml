@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SSOReg"
+    tools:layout_editor_absoluteY="81dp"
+    android:orientation="vertical"
+    android:background="#dbdbdb">
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="350dp"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/id_ssoname1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/textbox"
+            android:hint="SSO Name"
+            android:inputType="textLongMessage"
+            android:padding="10dp"
+            android:textAllCaps="false"
+            android:textSize="16sp" />
+
+        <EditText
+            android:background="@drawable/textbox"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/id_address"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Address"
+            android:inputType="phone" />
+
+        <EditText
+            android:background="@drawable/textbox"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/id_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+
+        <EditText
+            android:background="@drawable/textbox"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/id_isonumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ISO Number"
+            android:inputType="text" />
+
+        <EditText
+            android:background="@drawable/textbox"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/id_contact1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contact No."
+            android:inputType="phone" />
+
+        <EditText
+            android:background="@drawable/textbox"
+            android:padding="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/id_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Account Number" />
+
+        <EditText
+            android:id="@+id/id_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/textbox"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/id_repassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/textbox"
+            android:hint="Re-Enter Password "
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/id_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/buttonbackground"
+            android:fontFamily="@font/roboto"
+            android:text="Register"
+            android:textColor="#ffff"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>
