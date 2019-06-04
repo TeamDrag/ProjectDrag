@@ -1,5 +1,3 @@
-# ProjectDrag
-
 HELPING HANDS
  A donation application for Social Service Organisations(SSO) and donor.
  
@@ -15,8 +13,3 @@ Technology Used:
 3> The Server end manages the database using Google's Firebase authentication and database system.
 4> For Designing and Prototyping user experience is done using  Adobe XD is used.
 
-Group Members:
-Shivam Dhammi       9467010650 
-Mayank Raj          9717712399
-Vasu Agrawal        9521407747
-Sejal Gupta         8295204344
