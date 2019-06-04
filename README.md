@@ -20,6 +20,3 @@ Shivam Dhammi       9467010650
 Mayank Raj          9717712399
 Vasu Agrawal        9521407747
 Sejal Gupta         8295204344
-
-(2nd year)
-(Computer Engineering.)
